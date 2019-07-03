@@ -34,8 +34,9 @@
         <!--acá estoy metiendo el canvas con p5.js-->
       </div>
       <div class="col-sm-8">
-        <h3 class="border-bottom py-2">Dedicación</h3>
+        <h3 class="border-bottom py-2">Días y horas</h3>
         <p>Esto trata de la dedicación a actividades realizadas durante la semana.</p>
+        <p>Se puede observar que los días con mayor dedicación a actividades son los días Miércoles y Viernes. </p>  
       </div>
 
     </div><!--acá cierro el row-->
@@ -79,14 +80,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
     <script>
-      var w, h;
-      function setup(){
+        var semana;
+        var w, h;
+        
+        function preload(){
+            semana = loadJSON("https://api.myjson.com/bins/qvauv");
+           
+        }
+        function setup() {
         var w = document.getElementById('vis').offsetWidth;
         var h = w/2;
         createCanvas(w,h).parent("vis");
-        background(200);
-      }
-      function draw(){
+        background(150);
+            textAlign(CENTER);
+            rectMode(CENTER);
+            noStroke();
+            textSize (15)
+            text('Horas dedicadas por día', width/2, 100);
+            semana.semana.forEach(function(semana,i){
+                ellipse((width/8)*(1+i), height/2, semana.horas*2, semana.horas*2);
+                text(semana.dia, (width/8)*(1+i), (height/2)+120, 100, 100);
+           
+            });
+        }
+        function draw(){
         
       }
     </script>
